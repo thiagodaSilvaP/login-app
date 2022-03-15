@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.form`
   width: 50%;
   height: 60%;
   padding: 2rem;
@@ -44,6 +44,13 @@ export const InputContainer = styled.div`
     top: -0.8rem;
     background-color: #fff;
     font-size: small;
+  }
+
+  small {
+    font-size: small;
+    color: red;
+    padding: 0px 5px;
+    font-weight: bold;
   }
 `;
 
