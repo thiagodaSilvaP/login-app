@@ -1,60 +1,58 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import { Input } from "../../compoennts/Input";
 
-import { Container, InputContainer, ButtonContainer, ImageLogIn } from "./style";
-import logInLogo from '../../assets/log-in.png';
-import { useValidate } from '../../hooks/useValidate';
+import {
+  Container,
+  InputContainer,
+  ButtonContainer,
+  ImageLogIn,
+} from "./style";
+import logInLogo from "../../assets/log-in.png";
+import { useValidate } from "../../hooks/useValidate";
 
 export const SignIn = () => {
-  const [values, setvalues] = useState({email: '', password: ''});
-  const [errors, setErrors] = useState({});
+  const { register, handleSubmit, getValues } = useForm();
+  const [error, setError] = useState({});
 
-  const handleOnChange = (event) => {
-    const {name, value} = event.target
-    setvalues(prev => {return {...values, [name]: value}})
-  }
-  const handleOnSubmit = (event) => {
-    event.preventDefault()
-    const [errors, isSubmit] = useValidate(values)
-    setErrors(errors)
+
+  const onSubmit = (data) => {
+    const [errors, isSubmit] = useValidate(getValues());
+    setError(errors);
 
     if (isSubmit) {
-      console.log('logado');
-      
+      console.log("logado");
+      console.log(data);
     }
-  }
+  };
 
   return (
-    <Container onSubmit={handleOnSubmit}>
+    <Container onSubmit={handleSubmit(onSubmit)}>
       <ImageLogIn src={logInLogo} alt="LogIn Logo" />
       <InputContainer>
-        <label htmlFor="email">E-mail</label>
+        <label htmlFor="password">E-mail</label>
         <Input
           type="email"
           id="email"
           placeholder="example@domain.com"
-          name="email"
-          value={values.email}
-          onChange={handleOnChange}
-          />
-          {errors.email && <small>{errors.email}</small>}
+          {...register("email")}
+        />
+        {error.email && <small>{error.email}</small>}
       </InputContainer>
-
       <InputContainer>
         <label htmlFor="password">Password</label>
         <Input
           type="password"
           id="password"
           placeholder="******"
-          name="password"
-          value={values.password}
-          onChange={handleOnChange}
+          {...register("password")}
         />
-        {errors.password && <small>{errors.password}</small>}
+        {error.password && <small>{error.password}</small>}
       </InputContainer>
+
       <ButtonContainer>
-          <Input type='submit' name='submit' value='Login'/>
+        <Input type="submit" name="submit" value="Login" />
       </ButtonContainer>
     </Container>
   );
