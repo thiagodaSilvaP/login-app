@@ -1,11 +1,14 @@
-import { SignIn } from "./SignIn"
+import { Form } from "./Form/";
+import { UsersProvider } from "../contexts/UsersContext";
 
-import {Container} from './style';
+import { Container } from "./style";
 
 export const App = () => {
-    return (
-        <Container>
-        <SignIn/>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <UsersProvider>
+        <Form />
+      </UsersProvider>
+    </Container>
+  );
+};

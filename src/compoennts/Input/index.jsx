@@ -5,7 +5,7 @@ import React from "react";
 // };
 
 export const Input = React.forwardRef(
-  ({ onChange, onBlur, name, type, placeholder, id }, ref) => {
+  ({ onChange, onBlur, name, type, placeholder, id, value}, ref) => {
     return (
       <input
         name={name}
@@ -15,6 +15,7 @@ export const Input = React.forwardRef(
         type={type}
         placeholder={placeholder}
         id={id}
+        value={value}
       ></input>
     );
   }

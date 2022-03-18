@@ -31,7 +31,7 @@ export const SignIn = () => {
     <Container onSubmit={handleSubmit(onSubmit)}>
       <ImageLogIn src={logInLogo} alt="LogIn Logo" />
       <InputContainer>
-        <label htmlFor="password">E-mail</label>
+        <label htmlFor="email">E-mail</label>
         <Input
           type="email"
           id="email"
