@@ -1,14 +1,20 @@
-import { Form } from "./Form/";
+import { BrowserRouter as Router } from "react-router-dom";
+import {MainRoutes as Routes} from "../routes/Routes";
+
+// import {SignUp} from '../compoennts/SignUp';
 import { UsersProvider } from "../contexts/UsersContext";
 
 import { Container } from "./style";
 
 export const App = () => {
   return (
-    <Container>
-      <UsersProvider>
-        <Form />
-      </UsersProvider>
-    </Container>
+    <Router>
+      <Container>
+        <UsersProvider>
+          <Routes/>
+          {/* <SignUp/> */}
+          </UsersProvider>
+      </Container>
+    </Router>
   );
 };

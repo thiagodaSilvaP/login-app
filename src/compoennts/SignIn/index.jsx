@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import {Link} from 'react-router-dom';
 
 import { Input } from "../../compoennts/Input";
 
@@ -54,6 +55,7 @@ export const SignIn = () => {
       <ButtonContainer>
         <Input type="submit" name="submit" value="Login" />
       </ButtonContainer>
+      <Link to={'/signup'} style={{fontSize: 'small', marginTop: '10px'}}>Não tem Login?</Link>
     </Container>
   );
 };

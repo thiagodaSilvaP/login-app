@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import { useForm } from "react-hook-form";
+import {Link} from 'react-router-dom';
 
 import {UsersContext} from '../../contexts/UsersContext';
 import { Input } from "../Input/";
@@ -19,6 +20,7 @@ export const SignUp = () => {
   }
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
+      <h1>Sign Up</h1>
       <InputContainer>
         <label htmlFor="email">E-mail</label>
         <Input
@@ -49,6 +51,7 @@ export const SignUp = () => {
       <ButtonContainer>
         <Input type="submit" name="submit_register" value="Cadastrar" />
       </ButtonContainer>
+      <Link to={'/'} style={{fontSize: 'small'}}>Já tem Login?</Link>
     </Container>
   );
 };
