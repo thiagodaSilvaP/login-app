@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import { Input } from "../../compoennts/Input";
 
@@ -16,7 +16,7 @@ import { useValidate } from "../../hooks/useValidate";
 export const SignIn = () => {
   const { register, handleSubmit, getValues } = useForm();
   const [error, setError] = useState({});
-
+  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     const [errors, isSubmit] = useValidate(getValues());
@@ -25,6 +25,7 @@ export const SignIn = () => {
     if (isSubmit) {
       console.log("logado");
       console.log(data);
+      navigate('/login')
     }
   };
 
