@@ -9,7 +9,7 @@ import { Input } from "../Input/";
 import { InputContainer, Container, ButtonContainer } from "./style";
 
 export const SignUp = () => {
-  const { register, handleSubmit,  formState: {errors} } = useForm();
+  const { register, handleSubmit,  formState: {errors}, getValues } = useForm();
   const {users, setUsers} = useContext(UsersContext)
   // const [error, setError] = useState({});
   const navigate = useNavigate()
@@ -17,12 +17,9 @@ export const SignUp = () => {
   const onSubmit = data => {
     // const [errors, isSubmit] = useValidate(getValues());
     // setError(errors);
-    if (isSubmit) {
-      console.log("logado");
       registerUser()
       console.log(users);
       navigate('/')
-    }
   }
   const registerUser = () => {
       setUsers(prev => [...prev, {email: getValues('email'), password: getValues('password')}])

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Input } from "../../compoennts/Input";
+import {UsersContext} from '../../contexts/UsersContext';
 
 import {
   Container,
@@ -18,21 +19,32 @@ export const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues
   } = useForm();
-  // const [error, setError] = useState({});
+  // const [error, s1etError] = useState({});
+  const {users} = useContext(UsersContext)
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     // const [errors, isSubmit] = useValidate(getValues());
     // setError(errors);
+    const log = users.filter(user => {
+      if (getValues('email') === user.email) {
+        if (getValues('password') === user.password) {
+          return true
+        }
+      }
+      return false
+      
+  })
 
-    if (isSubmit) {
+    if (log) {
       console.log("logado");
       console.log(data);
       navigate("/login");
     }
   };
-
+  console.log(users);
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
       <ImageLogIn src={logInLogo} alt="LogIn Logo" />
