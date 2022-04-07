@@ -9,15 +9,14 @@ import { Input } from "../Input/";
 import { InputContainer, Container, ButtonContainer } from "./style";
 
 export const SignUp = () => {
-  const { register, handleSubmit, getValues, setFocus } = useForm();
+  const { register, handleSubmit,  formState: {errors} } = useForm();
   const {users, setUsers} = useContext(UsersContext)
-  const [error, setError] = useState({});
+  // const [error, setError] = useState({});
   const navigate = useNavigate()
 
   const onSubmit = data => {
-    const [errors, isSubmit] = useValidate(getValues());
-    setError(errors);
-
+    // const [errors, isSubmit] = useValidate(getValues());
+    // setError(errors);
     if (isSubmit) {
       console.log("logado");
       registerUser()
@@ -38,9 +37,9 @@ export const SignUp = () => {
           type="email"
           id="email"
           placeholder="example@domain.com"
-          {...register("email")}
+          {...register("email", {required: 'Email is Required'})}
         />
-        {error.email && <small>{error.email}</small>}
+        {errors.email?.message && <small>{errors.email?.message}</small>}
       </InputContainer>
       <InputContainer>
         <label htmlFor="password">Senha</label>
@@ -48,9 +47,9 @@ export const SignUp = () => {
           type="password"
           id="password"
           placeholder="******"
-          {...register("password")}
+          {...register("password", {required: 'Password is Required', minLength: {value: 4, message: 'Password must be at least 4 characters'}})}
         />
-        {error.password && <small>{error.password}</small>}
+        {errors.password?.message && <small>{errors.password?.message}</small>}
       </InputContainer>
       {/* <InputContainer>
         <label htmlFor="confirm_password">Confirme sua Senha</label>
