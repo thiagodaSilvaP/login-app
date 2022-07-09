@@ -7,6 +7,7 @@ export const UsersContext = createContext()
 export const UsersProvider = ({children}) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -24,18 +25,20 @@ export const UsersProvider = ({children}) => {
 
 
     const onLogin = async ({email, password}) => {
-        const {data: {token}} = await api.post('/users/login', {
-          email: email,
-          password: password
-        })
+        try {
+            const {data} = await api.post('/users/login', {
+              email: email,
+              password: password
+            })
     
-        console.log(token)
-
-        localStorage.setItem('token', JSON.stringify(token))
-        api.defaults.headers.Authorization = `Bearer ${token}`
-
-        setAuthenticated(true)
-        navigate('/login')
+            localStorage.setItem('token', JSON.stringify(data.token))
+            api.defaults.headers.Authorization = `Bearer ${data.token}`
+    
+            setAuthenticated(true)
+            navigate('/login')
+        } catch ({response: {data: {message}}}) {
+            return message
+        }
       }
 
     const onLogout = () => {

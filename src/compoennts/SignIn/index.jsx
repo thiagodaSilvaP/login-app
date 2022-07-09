@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-import {UsersContext} from '../../contexts/UsersContext';
+import { UsersContext } from '../../contexts/UsersContext';
 
 import { Input } from "../../compoennts/Input";
 
@@ -15,6 +15,7 @@ import {
 
 
 import logInLogo from "../../assets/log-in.png";
+import { ErrorPopup } from "../ErrorPopup";
 
 export const SignIn = () => {
   const {
@@ -22,18 +23,23 @@ export const SignIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // const [error, s1etError] = useState({});
-  
-  const navigate = useNavigate();
-  const {onLogin} = useContext(UsersContext)
+
+  const [popupModalIsOpen, setPopupModalIsOpen] = useState(false);
+  const [apiError, setApiError] = useState({});
+  const { onLogin } = useContext(UsersContext)
 
   const onSubmit = async (dataSubmit) => {
-    const {email, password} = dataSubmit
+    const { email, password } = dataSubmit
 
-    await onLogin({email, password})    
+    const data = await onLogin({ email, password })
+
+    if (data) {
+      setApiError(data)
+      return setPopupModalIsOpen(true)
+    }
   };
 
-  
+
 
 
 
@@ -73,6 +79,8 @@ export const SignIn = () => {
       <Link to={"/signup"} style={{ fontSize: "small", marginTop: "10px" }}>
         Não tem Login?
       </Link>
+
+      <ErrorPopup popupModalIsOpen={popupModalIsOpen} setPopupModalIsOpen={setPopupModalIsOpen}>{apiError}</ErrorPopup>
     </Container>
   );
 };
